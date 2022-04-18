@@ -1,0 +1,12 @@
+
+version: "3.1"
+
+services:
+  taxi-management:
+    container_name: taxi-management
+    restart: always
+    build: .
+    volumes:
+      - ./src:/app/src
+    ports:
+      - '8080:8080'
