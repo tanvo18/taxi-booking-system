@@ -17,6 +17,6 @@ module.exports = {
   ],
   'rules': {
     'quotes': [2, 'single', { 'avoidEscape': true }],
-    // 'semi': ['error', 'never', { 'beforeStatementContinuationChars': 'never'}]
+    'semi': ['error', 'never', { 'beforeStatementContinuationChars': 'never'}]
   }
 }
