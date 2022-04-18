@@ -16,6 +16,7 @@ module.exports = {
       '@typescript-eslint'
   ],
   'rules': {
-    'quotes': [2, 'single', { 'avoidEscape': true }]
+    'quotes': [2, 'single', { 'avoidEscape': true }],
+    // 'semi': ['error', 'never', { 'beforeStatementContinuationChars': 'never'}]
   }
 }
