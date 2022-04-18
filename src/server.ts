@@ -1,6 +1,6 @@
 
-import app from "./app";
-import { PORT } from "./constants/constants";
+import app from './app';
+import { PORT } from './constants/constants';
 import { errorHandler } from './middlewares/error-handler'
 
 app.use(errorHandler);

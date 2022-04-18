@@ -2,9 +2,9 @@ export class ErrorModel {
   /**
    * Unique error code which identifies the error.
    */
-  public name: string;
+  name: string;
   /**
    * Status code of the error.
    */
-  public statusCode: number;
+  statusCode: number;
 }

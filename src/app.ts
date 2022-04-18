@@ -1,7 +1,7 @@
-import { Application } from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import express from "express";
+import { Application } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
 
 class App {
   app: Application;
@@ -13,9 +13,9 @@ class App {
 
   private setConfig = () => {
     // Allows us to receive requests with data in json format
-    this.app.use(bodyParser.json({ limit: "50mb" }));
+    this.app.use(bodyParser.json());
     // Allows us to receive requests with data in x-www-form-urlencoded format
-    this.app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+    this.app.use(bodyParser.urlencoded({ extended: true }));
     // Enables cors
     this.app.use(cors());
   }
