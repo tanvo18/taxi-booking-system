@@ -18,13 +18,16 @@ export class ErrorException extends Error {
     switch (name) {
       case ErrorCode.UNAUTHENTICATED:
         this.statusCode = HttpStatusCode.UNAUTHORIZED
-        break;
+        break
       case ErrorCode.NOT_FOUND:
         this.statusCode = HttpStatusCode.NOT_FOUND
-        break;
+        break
       case ErrorCode.DUPLICATE_ENTITY_ERROR:
         this.statusCode = HttpStatusCode.CONFLICT
-        break;
+        break
+      case ErrorCode.BAD_REQUEST:
+        this.statusCode = HttpStatusCode.BAD_REQUEST
+        break
       default:
         break
     }

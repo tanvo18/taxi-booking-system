@@ -4,6 +4,7 @@ import { ErrorException } from '../error-handler/error-exception'
 import { ErrorModel } from '../models/error'
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log('Error', err)
   if (err instanceof ErrorException) {
     console.log('Error is known.')
     res.status(err.statusCode).send(err)
