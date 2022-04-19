@@ -4,6 +4,7 @@ import cors from 'cors'
 import express from 'express'
 import { CarController } from './controllers/car'
 import { CarService } from './services/car'
+import { BaseRouter } from './routers/base-router'
 class App {
   app: Application
 
@@ -23,8 +24,9 @@ class App {
   }
 
   setControllers = () => {
-    const carController = new CarController(new CarService())
-    this.app.use('/api', carController.router)
+    const baseRouter = new BaseRouter().router
+    new CarController(new CarService(), baseRouter)
+    this.app.use('/api', baseRouter)
   }
 }
 

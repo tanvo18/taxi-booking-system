@@ -8,8 +8,8 @@ export class CarController {
   router: Router
   carService: CarService
 
-  constructor(carService: CarService) {
-    this.router = Router()
+  constructor(carService: CarService, router: Router) {
+    this.router = router
     this.carService = carService
     this.setRoutes()
   }
