@@ -21,6 +21,7 @@ export class CarController {
     this.router.get('/cars', this.getCars)
     this.router.post('/book', this.bookCar)
     this.router.post('/tick', this.tick)
+    this.router.put('/reset', this.reset)
   }
 
   getCars = (req: Request, res: Response) => {
@@ -52,5 +53,11 @@ export class CarController {
     this.cars = this.carService.move(this.cars)
 
     res.send({message: 'The service time has increased'})
+  }
+
+  reset = (req: Request, res: Response) => {
+    this.cars = this.carService.initializeCars(3)
+
+    res.send(this.cars)
   }
 }
