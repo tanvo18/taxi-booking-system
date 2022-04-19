@@ -13,6 +13,16 @@ export class CarService {
     return cars
   }
 
+  book = (car: Car, location: Location): Car => {
+    const { source, destination } = location
+
+    car.destCoordinate = destination
+    car.status = CarStatus.BOOKED
+    car.timeUnit = calculateTimeUnit(car.startCoordinate, source) + calculateTimeUnit(source, destination)
+
+    return car
+  }
+
   findNearestCar = (cars: Car[], location: Location): Car | null => {
     const availableCars = cars.filter(car => car.status === CarStatus.AVAILABLE)
     let minTimeUnit = Number.POSITIVE_INFINITY
@@ -33,15 +43,22 @@ export class CarService {
     }
 
     // Returns car with smallest id (in case we have many cars with the same location)
-    const nearestCar = nearestCars.sort((car1, car2) => car1.id - car2.id)[0]
-    nearestCar.book(location)
+    let nearestCar = nearestCars.sort((car1, car2) => car1.id - car2.id)[0]
+    nearestCar = this.book(nearestCar, location)
 
     return nearestCar
   }
 
   move = (cars: Car[]): Car[] => {
     for (const car of cars) {
-      car.move()
+      if (car.status === CarStatus.BOOKED) {
+        // Car arrives to the destination
+        if (car.timeUnit === 1) {
+          car.startCoordinate = car.destCoordinate
+          car.status = CarStatus.AVAILABLE
+        }
+        car.timeUnit--
+      }
     }
 
     return cars
