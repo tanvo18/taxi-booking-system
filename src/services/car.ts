@@ -3,6 +3,12 @@ import { Location } from '../interfaces/location'
 import { CarStatus } from '../enums/car-status'
 import { calculateTimeUnit } from '../utils/utils'
 export class CarService {
+  cars: Car[]
+
+  constructor() {
+    this.cars = this.initializeCars(3)
+  }
+
   initializeCars = (quantity: number): Car[] => {
     const cars: Car[] = []
 
@@ -11,6 +17,10 @@ export class CarService {
     }
 
     return cars
+  }
+
+  getCars = (): Car[] => {
+    return this.cars
   }
 
   book = (car: Car, location: Location): Car => {

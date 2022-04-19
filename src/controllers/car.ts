@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction, Router } from 'express'
-import { Car } from '../models/car'
 import { CarService } from '../services/car'
 import { HttpStatusCode } from '../enums/http-status-code'
 import { ErrorException } from '../error-handler/error-exception'
@@ -8,12 +7,10 @@ import { ErrorCode } from '../error-handler/error-code'
 export class CarController {
   router: Router
   carService: CarService
-  cars: Car[]
 
   constructor(carService: CarService) {
     this.router = Router()
     this.carService = carService
-    this.cars = carService.initializeCars(3)
     this.setRoutes()
   }
 
@@ -25,7 +22,9 @@ export class CarController {
   }
 
   getCars = (req: Request, res: Response) => {
-    res.send(this.cars)
+    const cars = this.carService.getCars()
+
+    res.send(cars)
   }
 
   bookCar = (req: Request, res: Response, next: NextFunction) => {
@@ -37,7 +36,8 @@ export class CarController {
         throw new ErrorException(ErrorCode.BAD_REQUEST, 'Missing source or destination')
       }
 
-      const nearestCar = this.carService.findNearestCar(this.cars, body)
+      const cars = this.carService.getCars()
+      const nearestCar = this.carService.findNearestCar(cars, body)
 
       if (!nearestCar) {
         return res.status(HttpStatusCode.OK).send({})
@@ -50,14 +50,15 @@ export class CarController {
   }
 
   tick = (req: Request, res: Response) => {
-    this.cars = this.carService.move(this.cars)
+    const cars = this.carService.getCars()
+    this.carService.move(cars)
 
     res.send({message: 'The service time has increased'})
   }
 
   reset = (req: Request, res: Response) => {
-    this.cars = this.carService.initializeCars(3)
+    this.carService = new CarService()
 
-    res.send(this.cars)
+    res.send(this.carService.cars)
   }
 }
