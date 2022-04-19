@@ -9,7 +9,7 @@ export class Car {
   status: CarStatus
   timeUnit: number
 
-  constructor(id: number, startCoordinate = new Coordinate(0, 0), destCoordinate= new Coordinate(0, 0)) {
+  constructor(id: number, startCoordinate = new Coordinate(0, 0), destCoordinate = new Coordinate(0, 0)) {
     this.id = id
     this.startCoordinate = startCoordinate
     this.destCoordinate = destCoordinate
@@ -18,14 +18,18 @@ export class Car {
   }
 
   move = () => {
-    if (this.timeUnit > 0) {
-      this.timeUnit--
+    if (this.status === CarStatus.BOOKED) {
+      if (this.timeUnit === 1) {
+        this.arriveDestination()
+      } else {
+        this.timeUnit--
+      }
     }
   }
 
   arriveDestination = () => {
-    this.status = CarStatus.AVAILABLE
     this.startCoordinate = this.destCoordinate
+    this.status = CarStatus.AVAILABLE
     this.timeUnit = 0
   }
 
@@ -33,7 +37,6 @@ export class Car {
     const { source, destination } = location
     this.destCoordinate = destination
     this.status = CarStatus.BOOKED
-
     this.timeUnit = calculateTimeUnit(this.startCoordinate, source) + calculateTimeUnit(source, destination)
   }
 }

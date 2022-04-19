@@ -38,4 +38,12 @@ export class CarService {
 
     return nearestCar
   }
+
+  move = (cars: Car[]): Car[] => {
+    for (const car of cars) {
+      car.move()
+    }
+
+    return cars
+  }
 }
