@@ -1,4 +1,4 @@
-import chai, { expect } from 'chai'
+import { expect } from 'chai'
 import { CarStatus } from '../enums/car-status'
 import { Car } from '../models/car'
 import { CarService } from '../services/car'
