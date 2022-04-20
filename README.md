@@ -1,5 +1,11 @@
 # taxi-booking-system
 
+
+## Clone this project
+```
+git clone git@github.com:tanvo18/taxi-booking-system.git
+```
+
 ## Run app via Docker
 - Navigate to the root of this project
 - Make sure your machine can run the script on bin folder
@@ -12,6 +18,7 @@ chmod +x bin/*
 ```
 
 ## Run app on local machine
+- Navigate to the root of this project
 - Using Node.js v16.14.0
 - Install npm
 ```
@@ -45,6 +52,10 @@ Our system will pick the nearest available car to the customer location and retu
 
 - Request payload
 
+  | Parameter | Type | Description |
+  | :--- | :--- | :--- |
+  | `location json object` | `object` | **Required** |
+
 ```json
 {
   "source": {
@@ -58,7 +69,7 @@ Our system will pick the nearest available car to the customer location and retu
 }
 ```
 
-- Response payload
+- Response payload if there is at least 1 car available
 
 ```json
 {
@@ -67,14 +78,135 @@ Our system will pick the nearest available car to the customer location and retu
 }
 ```
 
+- Response payload if there aren't any available car
+```json
+{ }
+```
+
+- Response payload if the sending payload miss `car_id` or `total_time`
+```json
+{
+    "name": "BAD_REQUEST",
+    "statusCode": 400,
+    "description": "Missing source or destination"
+}
+```
+
 #### `POST /api/tick`
 
 This API makes our service time stamp increase 1 time unit
+
+- Response payload
+```json
+{
+  "message": "The service time has increased"
+}
+```
 
 #### `PUT /api/reset`
 
 Reset data to initial status
 
+- Response payload
+```json
+[
+    {
+        "id": 1,
+        "startCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "destCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "status": "AVAILABLE",
+        "timeUnit": 0
+    },
+    {
+        "id": 2,
+        "startCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "destCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "status": "AVAILABLE",
+        "timeUnit": 0
+    },
+    {
+        "id": 3,
+        "startCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "destCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "status": "AVAILABLE",
+        "timeUnit": 0
+    }
+]
+```
+
 #### `GET /api/cars`
 
 Get all information of cars
+
+- Response payload
+```json
+[
+    {
+        "id": 1,
+        "startCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "destCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "status": "AVAILABLE",
+        "timeUnit": 0
+    },
+    {
+        "id": 2,
+        "startCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "destCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "status": "AVAILABLE",
+        "timeUnit": 0
+    },
+    {
+        "id": 3,
+        "startCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "destCoordinate": {
+            "x": 0,
+            "y": 0
+        },
+        "status": "AVAILABLE",
+        "timeUnit": 0
+    }
+]
+```
+
+## Status Codes
+
+My app returns the following status codes in its API:
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 400 | `BAD REQUEST` |
+| 500 | `INTERNAL SERVER ERROR` |
