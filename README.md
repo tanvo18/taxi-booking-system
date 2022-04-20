@@ -14,7 +14,7 @@ chmod +x bin/*
 ```
 - Run app
 ```
-./bin/run-app run
+./bin/run-app.sh run
 ```
 
 ## Run app on local machine
